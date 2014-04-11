@@ -23,3 +23,5 @@ cdt name "Google Chrome.app"
 
 * `pkgwatch` - watch for the presence of new PKGs being installed (start observing with `cdt pkgwatch start`, and then stop observing and view results with `cdt pkgwatch stop`)
 * `version` - lists version info about Cask Developer Tools.
+
+Thanks to the people at Homebrew-Cask, including Roland Walker, Vitor Galvao, Paul Hinze, and many others, for providing these devscripts; all I did was organize them a bit.
