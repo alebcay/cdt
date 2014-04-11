@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+set +o histexpand
+shopt -s nocasematch
+
+/bin/ls -t /var/db/receipts |                        \
+/usr/bin/egrep '\.plist$' |                          \
+/usr/bin/perl -pe 's{\A([^/]+)\.plist\Z}{$1}sg' |    \
+/usr/bin/egrep -v '^com\.apple\.' |                  \
+/usr/bin/head -20 > /tmp/cdt.pkgwatch.after.log
+tr -d "+" <<< "$(diff -u /tmp/cdt.pkgwatch.before.log /tmp/cdt.pkgwatch.after.log | grep -E "^\+")" | tail -n +2

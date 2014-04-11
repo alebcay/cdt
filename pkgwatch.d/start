@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+set +o histexpand
+shopt -s nocasematch
+
+/bin/ls -t /var/db/receipts |                        \
+/usr/bin/egrep '\.plist$' |                          \
+/usr/bin/perl -pe 's{\A([^/]+)\.plist\Z}{$1}sg' |    \
+/usr/bin/egrep -v '^com\.apple\.' |                  \
+/usr/bin/head -20 > /tmp/cdt.pkgwatch.before.log
+echo "Successfully captured package list. Install new packages now, then run"
+echo -e "  cdt pkgwatch stop"
+echo ""
