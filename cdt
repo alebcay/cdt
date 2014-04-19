@@ -1,6 +1,8 @@
 #!/bin/bash
 # Description: Runs subcommands
 set -e
+SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
+exec_path=$( dirname $(readlink $SCRIPTPATH/cdt) )/cdt.d
 
 # subcommander
 #
@@ -81,7 +83,8 @@ fi
 # context but will accept their own exec_path. For example a sub-subcommander
 # under 'mytool' called 'db' would examine MYTOOL_DB_EXEC_PATH
 ctx_envname="`echo $SC_MAIN|tr 'a-z ' 'A-Z_'`_CONTEXT"
-eval "exec_path=\${`echo $SC_NAME|tr 'a-z ' 'A-Z_'`_EXEC_PATH:='$0.d'}"
+# eval "exec_path=\${`echo $SC_NAME|tr 'a-z ' 'A-Z_'`_EXEC_PATH:='$0.d'}"
+# exec_path declaration and definition is now at the beginning of file.
 
 if [ ! -d "$exec_path" ]; then
 	abort <<-END
