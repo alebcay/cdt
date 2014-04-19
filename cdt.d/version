@@ -1,6 +1,6 @@
 #!/bin/bash
 cat <<-END
   Cask Developer Tools
-  release 0.1.1 (core 0.32.0)
+  release 0.1.2 (core 0.32.0)
   Written by Paul Hinze, Roland Walker, Vitor Galvao, Felix Saparelli, and others
 END
