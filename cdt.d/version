@@ -1,6 +1,7 @@
 #!/bin/bash
 cat <<-END
   Cask Developer Tools
-  release 0.1.2 (core 0.32.0)
-  Written by Paul Hinze, Roland Walker, Vitor Galvao, Felix Saparelli, and others
+  release 0.1.3 (core 0.32.0)
+  cdt is written by Caleb Xu with help from Michael F. Lamb's subcommander tool. It also uses many of
+  Homebrew-Cask's core devscripts, written by Paul Hinze.
 END
