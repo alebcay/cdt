@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CURRENT="0.1.3"
+CURRENT="0.1.4"
 
 doupdate () {
     echo -e "\033[2mDownloading update package"
