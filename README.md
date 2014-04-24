@@ -25,5 +25,10 @@ cdt name "Google Chrome.app"
 * `status` - gets the latest status information regarding which casks are failing tests (see http://github.com/alebcay/cask-tasting)
 * `update` - gets the latest release from GitHub, if there is a newer one. Requires `jq` to parse GitHub API's JSON, and it will be installed via Homebrew if necessary.
 * `version` - lists version info about Cask Developer Tools.
+* `view` - shows the contents of a specified Cask
+
+```
+cdt view vagrant
+```
 
 Thanks to the people at Homebrew-Cask, including Roland Walker, Vitor Galvao, Paul Hinze, and many others, for providing these devscripts; all I did was organize them a bit.
