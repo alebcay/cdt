@@ -7,8 +7,8 @@
 ### settings
 ###
 
-set -e               # exit on any uncaught error
-set +o histexpand    # don't expand history expressions
+set -e # exit on any uncaught error
+set +o histexpand # don't expand history expressions
 shopt -s nocasematch # case-insensitive regular expressions
 
 ###
@@ -18,9 +18,9 @@ shopt -s nocasematch # case-insensitive regular expressions
 warn () {
     local message="$@"
     if ! [[ $message =~ "\n"$ ]]; then
-        message="${message}\n"
+message="${message}\n"
     fi
-    printf "$message" 1>&2
+printf "$message" 1>&2
 }
 
 die () {
@@ -31,17 +31,17 @@ die () {
 fail_informatively () {
     local message="No match."
     if ! [[ "$1" =~ '*' ]]; then
-        message="$message  Suggestion: try '${1}.*'"
+message="$message Suggestion: try '${1}.*'"
     fi
-    die "$message"
+die "$message"
 }
 
 analyze_regexp () {
     if [[ "$1" =~ ^\^ ]]; then
-        warn "Note: pkgutil regular expressions are implicitly anchored with '^' at start"
+warn "Note: pkgutil regular expressions are implicitly anchored with '^' at start"
     fi
-    if [[ "$1" =~ \$$ ]]; then
-        warn "Note: pkgutil regular expressions are implicitly anchored with '$' at end"
+if [[ "$1" =~ \$$ ]]; then
+warn "Note: pkgutil regular expressions are implicitly anchored with '$' at end"
     fi
 }
 
@@ -52,26 +52,26 @@ analyze_regexp () {
 _list_pkg_ids_by_regexp () {
     analyze_regexp "$1"
     if ! /usr/sbin/pkgutil --pkgs="$1"; then
-        fail_informatively "$1"
+fail_informatively "$1"
     fi
 }
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ || $# -ne 1 ]]; then
-    printf "list_pkg_ids_by_regexp <regexp>
+printf "list_pkg_ids_by_regexp <regexp>
 
 Print pkg receipt IDs for installed packages matching a regular
 expression, which may be useful in a Cask uninstall stanza, eg
 
-    uninstall :pkgutil => 'pkg.regexp.goes.here'
+uninstall :pkgutil => 'pkg.regexp.goes.here'
 
 Unlike most other scripts in this directory, package IDs attributed to
-Apple are NOT excluded from the output.  This is to avoid uninstalling
+Apple are NOT excluded from the output. This is to avoid uninstalling
 essential system files due to an exuberant regexp.
 
 For more information, see
 
-    https://github.com/phinze/homebrew-cask/blob/master/doc/CASK_LANGUAGE_REFERENCE.md#uninstall-stanza-details
+https://github.com/caskroom/homebrew-cask/blob/master/doc/CASK_LANGUAGE_REFERENCE.md#uninstall-stanza-details
 
 "
     exit
