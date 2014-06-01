@@ -56,6 +56,7 @@ APP_EXCEPTION_PATS = {
                       %r{\Akismac\Z}i => 'kismac',
                       %r{\Avoicemac\Z}i => 'voicemac',
                       %r{\Acleanmymac[\s\d\.]*\Z}i => 'cleanmymac',
+                      %r{\Abitcoin-?qt\Z}i => 'bitcoin-core',
                      }
 
 # Preserve trailing patterns on App names that could be mistaken
@@ -365,7 +366,6 @@ end
 ### methods
 ###
 
-
 def escaped_cask_file_extension
   @escaped_cask_file_extension ||= Regexp.escape(CASK_FILE_EXTENSION)
 end
@@ -386,28 +386,11 @@ def class_name
   @class_name ||= CaskClassName.new(cask_name).from_cask_name
 end
 
-def warnings
-  return @warnings if @warnings
-  @warnings = []
-  unless APP_EXCEPTION_PATS.rassoc(cask_name)
-    if %r{\d}.match(cask_name)
-      @warnings.push "WARNING: '#{cask_name}' contains digits. Digits which are version numbers should be removed."
-    end
-  end
-  @warnings
-end
-
 def report
   puts "Proposed canonical App name: #{canonical_name}" if $debug
   puts "Proposed Cask name: #{cask_name}"
   puts "Proposed file name: #{cask_file_name}"
   puts "First Line of Cask: class #{class_name} < Cask"
-  if warnings.length > 0
-    STDERR.puts "\n"
-    STDERR.puts warnings
-    STDERR.puts "\n"
-    exit 1
-  end
 end
 
 ###
