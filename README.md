@@ -23,7 +23,6 @@ cdt name "Google Chrome.app"
 
 * `pkgwatch` - watch for the presence of new PKGs being installed (start observing with `cdt pkgwatch start`, and then stop observing and view results with `cdt pkgwatch stop`)
 * `status` - gets the latest status information regarding which casks are failing tests (see http://github.com/alebcay/cask-tasting)
-* `update` - gets the latest release from GitHub, if there is a newer one. Requires `jq` to parse GitHub API's JSON, and it will be installed via Homebrew if necessary.
 * `version` - lists version info about Cask Developer Tools.
 * `view` - shows the contents of a specified Cask
 
