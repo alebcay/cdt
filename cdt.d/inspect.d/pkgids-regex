@@ -58,7 +58,7 @@ fail_informatively "$1"
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ || $# -ne 1 ]]; then
-printf "list_pkg_ids_by_regexp <regexp>
+printf "cdt inspect pkgids-regex <regexp>
 
 Print pkg receipt IDs for installed packages matching a regular
 expression, which may be useful in a Cask uninstall stanza, eg

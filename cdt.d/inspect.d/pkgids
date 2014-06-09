@@ -83,7 +83,7 @@ local tmpdir="$(/usr/bin/mktemp -d -t list_ids_in_pkg)"
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ || -z "$1" ]]; then
-printf "list_ids_in_pkg <file.pkg>
+printf "cdt inspect pkgids <file.pkg>
 
 Given a package file, extract a list of candidate Package IDs
 which may be useful in a Cask uninstall stanza, eg

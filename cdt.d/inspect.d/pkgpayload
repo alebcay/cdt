@@ -100,7 +100,7 @@ _list_payload_in_pkg () {
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ || -z "$1" ]]; then
-    printf "list_payload_in_pkg <file.pkg>
+    printf "cdt inspect pkgpayload <file.pkg>
 
 Given a package file, show what files may be installed by that
 pkg, which may be useful when writing a Cask uninstall stanza.

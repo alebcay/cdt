@@ -24,7 +24,7 @@ _list_loaded_kext_ids () {
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ ]]; then
-    printf "list_loaded_kext_ids
+    printf "cdt inspect kexts-loaded
 
 Print Bundle IDs for currently loaded Kernel Extensions (kexts)
 which may be useful in a Cask uninstall stanza, eg

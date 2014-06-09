@@ -47,16 +47,16 @@ CASK_FILE_EXTENSION = '.rb'
 # Example: in "x48.app", "x48" is not a version number.
 # The value in the hash should be a valid Cask name.
 APP_EXCEPTION_PATS = {
-                      %r{\Aiterm\Z}i => 'iterm2',
-                      %r{\Apgadmin3\Z}i => 'pgadmin3',
-                      %r{\Ax48\Z}i => 'x48',
-                      %r{\Avitamin-r[\s\d\.]*\Z}i => 'vitamin-r',
-                      %r{\Aimagealpha\Z}i => 'imagealpha',
-                      %r{\Aplayonmac\Z}i => 'playonmac',
-                      %r{\Akismac\Z}i => 'kismac',
-                      %r{\Avoicemac\Z}i => 'voicemac',
+                      %r{\Aiterm\Z}i               => 'iterm2',
+                      %r{\Apgadmin3\Z}i            => 'pgadmin3',
+                      %r{\Ax48\Z}i                 => 'x48',
+                      %r{\Avitamin-r[\s\d\.]*\Z}i  => 'vitamin-r',
+                      %r{\Aimagealpha\Z}i          => 'imagealpha',
+                      %r{\Aplayonmac\Z}i           => 'playonmac',
+                      %r{\Akismac\Z}i              => 'kismac',
+                      %r{\Avoicemac\Z}i            => 'voicemac',
                       %r{\Acleanmymac[\s\d\.]*\Z}i => 'cleanmymac',
-                      %r{\Abitcoin-?qt\Z}i => 'bitcoin-core',
+                      %r{\Abitcoin-?qt\Z}i         => 'bitcoin-core',
                      }
 
 # Preserve trailing patterns on App names that could be mistaken
@@ -66,6 +66,7 @@ PRESERVE_TRAILING_PATS = [
                           %r{mp3}i,
                           %r{3[\s-]*d}i,
                           %r{diff3}i,
+                          %r{\A[^\d]+\+\Z}i,
                          ]
 
 # The code that employs these patterns against App names
@@ -105,7 +106,7 @@ REMOVE_TRAILING_PATS = [
                         %r{\b(?:v|ver|vsn|r|rc)[\s\.\d-]*\d[\s\.\d-]*}i,
                         %r{\d+(?:[a-z\.]\d+)*}i,
                         %r{\b\d+\s*[a-z]}i,
-                        %r{\d+\s*[a-c]}i, # constrained to a-c b/c of false positives
+                        %r{\d+\s*[a-c]}i,   # constrained to a-c b/c of false positives
                        ]
 
 # Patterns which are permitted (undisturbed) following an interior version number
@@ -144,8 +145,8 @@ class AppName < String
 
     # check Info.plist CFBundleDisplayName
     bundle_name = Open3.popen3(*%w[
-/usr/libexec/PlistBuddy -c
-],
+                                   /usr/libexec/PlistBuddy -c
+                                  ],
                                'Print CFBundleDisplayName',
                                Pathname.new(self).join('Contents', 'Info.plist').to_s
                                ) do |stdin, stdout, stderr|
@@ -158,8 +159,8 @@ class AppName < String
 
     # check Info.plist CFBundleName
     bundle_name = Open3.popen3(*%w[
-/usr/libexec/PlistBuddy -c
-],
+                                   /usr/libexec/PlistBuddy -c
+                                  ],
                                'Print CFBundleName',
                                Pathname.new(self).join('Contents', 'Info.plist').to_s
                                ) do |stdin, stdout, stderr|
@@ -184,8 +185,8 @@ class AppName < String
 
     # check Info.plist CFBundleExecutable
     bundle_name = Open3.popen3(*%w[
-/usr/libexec/PlistBuddy -c
-],
+                                   /usr/libexec/PlistBuddy -c
+                                  ],
                                'Print CFBundleExecutable',
                                Pathname.new(self).join('Contents', 'Info.plist').to_s
                                ) do |stdin, stdout, stderr|
@@ -255,7 +256,7 @@ class AppName < String
   def remove_trailing_strings_and_versions
     app_name = self.insert_vertical_tabs_for_camel_case
                    .insert_vertical_tabs_for_snake_case
-    while self.class.remove_trailing_pat.match(app_name) and
+    while   self.class.remove_trailing_pat.match(app_name)   and
         not self.class.preserve_trailing_pat.match(app_name)
       app_name.sub!(self.class.remove_trailing_pat, '')
     end
@@ -308,7 +309,7 @@ class CaskFileName < String
     EXPANDED_SYMBOLS.each do |k, v|
       cask_file_name.gsub!(k, " #{v} ")
     end
-    cask_file_name
+    cask_file_name.sub(/ +\Z/, '')
   end
 
   def add_extension
@@ -386,11 +387,28 @@ def class_name
   @class_name ||= CaskClassName.new(cask_name).from_cask_name
 end
 
+def warnings
+  return @warnings if @warnings
+  @warnings = []
+  unless APP_EXCEPTION_PATS.rassoc(cask_name)
+    if %r{\d}.match(cask_name)
+      @warnings.push "WARNING: '#{cask_name}' contains digits. Digits which are version numbers should be removed."
+    end
+  end
+  @warnings
+end
+
 def report
   puts "Proposed canonical App name: #{canonical_name}" if $debug
-  puts "Proposed Cask name: #{cask_name}"
-  puts "Proposed file name: #{cask_file_name}"
-  puts "First Line of Cask: class #{class_name} < Cask"
+  puts "Proposed Cask name:          #{cask_name}"
+  puts "Proposed file name:          #{cask_file_name}"
+  puts "First Line of Cask:          class #{class_name} < Cask"
+  if warnings.length > 0
+    STDERR.puts "\n"
+    STDERR.puts warnings
+    STDERR.puts "\n"
+    exit 1
+  end
 end
 
 ###

@@ -134,7 +134,7 @@ _list_ids_in_app () {
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ || -z "$1" ]]; then
-    printf "list_ids_in_app <path.app>
+    printf "cdt inspect appids <path.app>
 
 Given a Application (app) bundle directory on disk, extract the
 associated app Bundle ID, which may be useful in a Cask uninstall

@@ -96,10 +96,11 @@ usage_abort () {
 		"$exec_path/help"
 	else
 		echo "usage: $SC_NAME COMMAND [ARGS...]"
-		echo -e "\npossible commands:"
+		echo -e "\npossible commands:\n"
 		cat <<-END
 			appids appids-running kextids kexts-loaded launchjobs-installed
 			launchjobs-loaded pkgapps pkgids pkgids-recent pkgids-regex pkgpayload
+			url-attributes
 		END
 	fi
 	echo

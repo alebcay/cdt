@@ -25,7 +25,7 @@ _list_recent_pkg_ids () {
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ ]]; then
-    printf "list_recent_pkg_ids
+    printf "cdt inspect pkgids-recent
 
 Print pkg receipt IDs for the 10 most-recently-installed packages,
 which may be useful in a Cask uninstall stanza, eg

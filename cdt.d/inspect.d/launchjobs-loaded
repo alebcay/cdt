@@ -58,7 +58,7 @@ _list_loaded_launchjob_ids () {
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ ]]; then
-    printf "list_loaded_launchjob_ids
+    printf "cdt inspect launchjobs-loaded
 
 List IDs for currently-loaded launchctl jobs, which may be useful
 in a Cask uninstall stanza, eg
