@@ -2,14 +2,8 @@
 echo -ne "\033[2m"
 echo "Getting list of sum mismatches"
 wget -qO /tmp/CaskSumError.txt https://raw.githubusercontent.com/alebcay/cask-tasting/master/CaskSumError.txt
-echo "Getting list of download failures"
-wget -qO /tmp/CaskDLFailed.txt https://raw.githubusercontent.com/alebcay/cask-tasting/master/CaskDLFailed.txt
 echo -e "\033[22;0m"
 echo -e "\033[1;34mSum mismatches ($(cat /tmp/CaskSumError.txt | wc -l | tr -d ' ')):\033[22;0m"
 cat /tmp/CaskSumError.txt
 echo ""
-echo -e "\033[1;34mDownload failures ($(cat /tmp/CaskDLFailed.txt | wc -l | tr -d ' ')):\033[22;0m"
-cat /tmp/CaskDLFailed.txt
-echo ""
 rm /tmp/CaskSumError.txt
-rm /tmp/CaskDLFailed.txt
