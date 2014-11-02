@@ -1,7 +1,7 @@
 cdt
 ===
 
-Cask developer tools for Homebrew-Cask: basically the devscripts from Homebrew-Cask, but more organized
+Cask developer tools for Homebrew-Cask: basically the devscripts from [Homebrew-Cask](https://github.com/caskroom/homebrew-cask), but more organized
 
 ## Usage
 
