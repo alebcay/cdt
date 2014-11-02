@@ -2,6 +2,4 @@
 cat <<-END
   Cask Developer Tools
   release 0.1.9 (core 0.36.0)
-  cdt is written by Caleb Xu with help from Michael F. Lamb's subcommander tool. It also uses many of
-  Homebrew-Cask's core devscripts, written by Roland Walker.
 END
