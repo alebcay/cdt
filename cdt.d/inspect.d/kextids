@@ -26,7 +26,7 @@ xargs="$(/usr/bin/which gxargs || printf '/usr/bin/xargs')"
 
 bundle_id_source_1 () {
     /usr/bin/find "$kextdir" -name Info.plist -print0 |                                \
-    "$xargs" -0 /usr/bin/plutil -convert xml1 -o - -- |                                \
+    "$xargs" -0 /usr/bin/plutil -convert xml1 -o - -- 2> /dev/null |                   \
     /usr/bin/perl -0777 -ne                                                            \
       'while (m{<key>\s*CFBundleIdentifier\s*</key>\s*<string>([^<]+?)</string>}sg) { print "$1\n" }'
 }
@@ -69,22 +69,15 @@ _list_id_in_kext () {
 # process args
 if [[ $1 =~ ^-+h(elp)?$ || -z "$1" ]]; then
     printf "cdt inspect kextids <file.kext>
-
 Given a Kernel Extension (kext) bundle dir on disk, extract the
 associated kext Bundle ID, which may be useful in a Cask uninstall
 stanza, eg
-
     uninstall :kext => 'kext.id.goes.here'
-
 The kext need not be loaded for this script to work.
-
 If a given kext is currently loaded, it will be followed by a plus
 symbol '(+)' in the output.  This can be verified via the command
-
     /usr/sbin/kextstat -kl -b 'kext.id.goes.here'
-
 See CONTRIBUTING.md and 'man kextstat' for more information.
-
 "
     exit
 fi

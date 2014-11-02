@@ -97,7 +97,7 @@ usage_abort () {
 	else
 		echo "usage: $SC_NAME COMMAND [ARGS...]"
 		cat <<-END
-			hash help inspect name pkgwatch status version view
+			hash help inspect name pkgwatch status version
 		END
 	fi
 	echo

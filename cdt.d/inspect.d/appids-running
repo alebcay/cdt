@@ -93,10 +93,18 @@ def report_apps
   puts running.to_a.sort
 end
 
+def check_ruby
+  if RUBY_VERSION.to_f < 1.9
+    puts "You must be running ruby >= 1.9 for 'cdt inspect appids-running' to work."
+    exit 1
+  end
+end
+
 ###
 ### main
 ###
 
+check_ruby
 process_args
 load_apps
 
