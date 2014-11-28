@@ -24,9 +24,6 @@ cdt name "Google Chrome.app"
 * `pkgwatch` - watch for the presence of new PKGs being installed (start observing with `cdt pkgwatch start`, and then stop observing and view results with `cdt pkgwatch stop`)
 * `status` - gets the latest status information regarding which casks are failing tests (see http://github.com/alebcay/cask-tasting)
 * `version` - lists version info about Cask Developer Tools.
-
-```
-cdt view vagrant
-```
+* `whitespace` - view whitespace anomalies in Cask files
 
 Thanks to the people at Homebrew-Cask, including Roland Walker, Vitor Galvao, Paul Hinze, and many others, for providing these devscripts; all I did was organize them a bit.
