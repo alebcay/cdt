@@ -68,7 +68,7 @@ _list_id_in_kext () {
 
 # process args
 if [[ $1 =~ ^-+h(elp)?$ || -z "$1" ]]; then
-    printf "cdt inspect kextids <file.kext>
+    printf "list_id_in_kext <file.kext>
 Given a Kernel Extension (kext) bundle dir on disk, extract the
 associated kext Bundle ID, which may be useful in a Cask uninstall
 stanza, eg

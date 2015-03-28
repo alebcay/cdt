@@ -1,5 +1,5 @@
 #!/bin/bash
 cat <<-END
   Cask Developer Tools
-  release 0.2.1 (core 0.48.0)
+  release 0.3.0 (core 0.53.3)
 END
